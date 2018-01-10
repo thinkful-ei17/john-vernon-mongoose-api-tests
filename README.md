@@ -1,1 +1,2 @@
-# john-vernon-mongoose-api-tests
+Blog app challenge solution
+==========================
