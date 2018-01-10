@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 
-describe('GET endpoint', function(){
+describe('testing get endpoint', function(){
   // Before our tests run, we activate the server. Our `runServer`
 // function returns a promise, and we return the that promise by
 // doing `return runServer`. If we didn't return a promise here,
