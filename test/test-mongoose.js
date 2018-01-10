@@ -43,10 +43,43 @@ after(function() {
             res = _res;
             expect(res).to.have.status(200);
             expect(res.body).to.have.length.of.at.least(1);
-            return BlogPost.count();
+            // return BlogPost.count();
         })
-        .then(count => {
-            //expect(res.body.post).to.have.length.of(count);
-        })
+        // .then(count => {
+        //     expect(res.body.posts).to.have.length.of(count);
+        // })
+    })
+})
+
+describe('testing post', function() {
+    before(function() {
+        return runServer();
+      });
+      
+      // although we only have one test module at the moment, we'll
+      // close our server at the end of these tests. Otherwise,
+      // if we add another test module that also has a `before` block
+      // that starts our server, it will cause an error because the
+      // server would still be running from the previous tests.
+      after(function() {
+        return closeServer();
+      });
+      
+    it('should add a post', function(){
+        const newPosts = {title:'your ugly', content:'yup you', author:{firstName:'Kanye', lastName:'East'}};
+        
+        return chai.request(app)
+            .post('/posts')
+            .send(newPosts)
+            .then(res => {
+                console.log(res);
+                expect(res).to.have.status(201);
+                expect(res).to.be.json;
+                expect(res.body).to.be.a('object');
+                expect(res.body).to.include.keys('title','content', 'author');
+                expect(res.body.title).to.equal(newPosts.title);
+                expect(res.body.content).to.equal(newPosts.content);
+                expect(res.body.author).to.equal(newPosts.author.firstName + ' ' + newPosts.author.lastName);
+            })
     })
 })

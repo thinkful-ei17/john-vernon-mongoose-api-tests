@@ -19,7 +19,7 @@ app.get('/posts', (req, res) => {
     .find()
     .then(posts => {
       console.log("");
-      console.log(posts);
+      // console.log(posts);
       res.json(posts.map(post => post.serialize()));
     })
     .catch(err => {
